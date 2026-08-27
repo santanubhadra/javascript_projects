@@ -17,13 +17,34 @@ function addItem(e) {
             return;
     }
 
-    addItemToDOM(newItem);
+    itemsInStorage = getItemFromStorage();
 
-    addItemToStorage(newItem);
+    console.log(itemsInStorage.length);
+
+
+    if (itemsInStorage.includes(itemInput.value)) {
+        updateItemToDOM();
+
+        } else {
+            addItemToDOM(newItem);
+            addItemToStorage(newItem);
+        }
+    
     
     checkUI();
 
     itemInput.Value = '';
+}
+
+function updateItemToDOM() {
+    newItemList = (document.getElementById('item-list')).querySelectorAll('li');
+
+    newItemList.forEach((item) => {
+        console.log(item.textContent);
+    })
+
+
+
 }
 
 function addItemToDOM(item) {
@@ -115,12 +136,18 @@ function filterCheck() {
     });
 }
 
+function displayItemToFilterField(e) {
+    itemInput.value = e.target.textContent.trim();
+}
+
 
 itemForm.addEventListener('submit', addItem);
 itemList.addEventListener('click', removeItem);
 clearAll.addEventListener('click', clearItems);
 filterButton.addEventListener('keyup', filterCheck);
 document.addEventListener('DOMContentLoaded', displayItems);
+itemList.addEventListener('click', displayItemToFilterField);
+
 checkUI();
 
 
