@@ -34,6 +34,11 @@ function addItem(e) {
         }
     }
 
+    if (checkIfItemExists(newItem)) {
+            alert('Item already exists!');
+            return;
+        }
+
     addItemToDOM(newItem);
 
     addItemToStorage(newItem);
